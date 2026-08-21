@@ -24,3 +24,6 @@ Quand tu cliques sur Run / Exécuter, elle envoie le code au kernel.
 Le kernel exécute le script avec les bibliothèques installées dans ton .venv et renvoie le résultat (texte, erreurs, graphiques) à l'écran.
 
 Sélectionner le bon kernel permet simplement à VS Code de savoir quelle version de Python et quels paquets (langchain, pypdf, etc.) utiliser pour faire tourner tes cellules.
+
+
+check loaders sur site pythonlangchain
