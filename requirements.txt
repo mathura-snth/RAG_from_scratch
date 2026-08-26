@@ -13,3 +13,9 @@ chromadb  # vector store
 # for the RAG Pipelin with Groq LLM
 langchain-Groq
 python-dotenv # reads key-value pairs from .env file and can set them as environment variables
+
+fastapi
+uvicorn
+langchain-text-splitters
+numpy
+pydantic
