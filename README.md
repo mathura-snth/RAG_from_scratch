@@ -174,7 +174,7 @@ data/
 ---
 
 ## Project Structure
-text
+```text
 RAG_from_scratch/
 ├── .venv/                      # Virtual environment
 ├── data/                       # Data directory
@@ -197,7 +197,7 @@ RAG_from_scratch/
 ├── api.py                      # FastAPI server
 ├── index.html                  # Web interface
 └── README.md                   # This file
-
+```
 ---
 
 ## Usage Guide
