@@ -2,3 +2,4 @@
 .env
 .DS_Store
 data/vector_store/
+venv/
