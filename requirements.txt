@@ -1,4 +1,4 @@
-# check : source .venv/bin/activate puis installer : pip install -r .requirements.txt et pour désactiver : deactivate
+# check : source venv/bin/activate puis installer : pip install -r requirements.txt et pour désactiver : deactivate
 langchain
 langchain-core
 langchain-community
