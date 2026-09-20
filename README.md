@@ -136,11 +136,11 @@ cd RAG_from_scratch
 ### Step 2: Create Virtual Environment
 ```bash
 # On macOS/Linux
-python3 -m venv .venv
-source .venv/bin/activate
+python3 -m venv venv
+source venv/bin/activate
 
 # On Windows
-python -m venv .venv
+python -m venv venv
 .venv\Scripts\activate
 ```
 

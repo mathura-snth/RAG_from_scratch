@@ -1,7 +1,8 @@
-# main.py
-from config import DATA_DIR, CHUNK_SIZE, CHUNK_OVERLAP, TEXT_GLOB_PATTERN, PDF_GLOB_PATTERN, TEXT_ENCODING
+from config import DATA_DIR, CHUNK_SIZE, CHUNK_OVERLAP, TEXT_GLOB_PATTERN, PDF_GLOB_PATTERN, TEXT_ENCODING, VECTOR_STORE_PATH, COLLECTION_NAME, EMBEDDING_MODEL
 from loader import load_text_files, load_pdf_files
 from splitter import split_documents
+from embedding import EmbeddingManager
+from vector_store import VectorStore
 
 def run_rag_pipeline():
     """
@@ -27,6 +28,18 @@ def run_rag_pipeline():
     print(f"\n--- Splitting documents ---")
     split_docs = split_documents(all_documents, CHUNK_SIZE, CHUNK_OVERLAP)
     
+    print(f"\n--- Embedding & Indexing ---")
+    embedding_manager = EmbeddingManager(model_name=EMBEDDING_MODEL)
+    embeddings = embedding_manager.generate_embeddings(
+        [doc.page_content for doc in split_docs]
+    )
+    
+    vector_store = VectorStore(
+        collection_name=COLLECTION_NAME,
+        persist_directory=VECTOR_STORE_PATH
+    )
+    vector_store.add_documents(split_docs, embeddings)
+
     print("\n--- Pipeline Complete ---")
 
     return split_docs

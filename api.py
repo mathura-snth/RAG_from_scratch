@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import uvicorn
 from langchain_groq import ChatGroq
+from config import DATA_DIR
 
 # Importer les modules du projet
 from embedding import EmbeddingManager
@@ -24,7 +25,8 @@ app.add_middleware(
 
 print("Initialisation du RAG en cours...")
 embedding_manager = EmbeddingManager()
-vector_store = VectorStore(persist_directory="data/vector_store")
+import os
+vector_store = VectorStore(persist_directory=os.path.join(DATA_DIR, "vector_store"))
 rag_retriever = RAGRetriever(vector_store, embedding_manager)
 
 # Chargement de la clé API et initialisation de Groq
