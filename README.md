@@ -51,6 +51,8 @@ This RAG system is specifically designed for the dental domain, processing PDFs 
 - **Web Interface**: User-friendly HTML interface for querying
 - **Source Attribution**: Every answer includes source references
 - **Environment Config**: Secure API key management with `.env`
+- **Anti-Hallucination Engine**: Implementation of the Factored Chain-of-Verification (CoVe) pipeline to ensure medical factual accuracy.
+- **LLMOps Evaluation**: Automated mathematical assessment of retrieval and generation using the RAGAS framework.
 
 ---
 
@@ -94,10 +96,21 @@ This RAG system is specifically designed for the dental domain, processing PDFs 
                           │
                           ▼
 ┌───────────────────────────────────────────────────┐
-│ LLM Layer                                         │
+│ LLM Layer & Chain-of-Verification (cove.py)       │
 │ (Groq / Qwen Model)                               │
 │ ┌───────────────────────────────────────────────┐ │
-│ │      Context + Question → LLM → Answer        │ │
+│ │ 1. Draft   : Initial answer generation        │ │
+│ │ 2. Plan    : Generate verification questions  │ │
+│ │ 3. Execute : Answer questions independently   │ │
+│ │ 4. Revise  : Produce final verified answer    │ │
+│ └───────────────────────────────────────────────┘ │
+└─────────────────────────┬─────────────────────────┘
+                          ▼
+┌───────────────────────────────────────────────────┐
+│ Evaluation Layer (eval.py)                        │
+│ ┌───────────────────────────────────────────────┐ │
+│ │ RAGAS Metrics: Faithfulness, Answer Relevancy,│ │
+│ │ Context Precision, Context Recall.            │ │
 │ └───────────────────────────────────────────────┘ │
 └───────────────────────────────────────────────────┘
 ```
@@ -115,6 +128,7 @@ This RAG system is specifically designed for the dental domain, processing PDFs 
 | **Document Processing** | LangChain | 0.3+ |
 | **PDF Parsing** | PyMuPDF | 1.24+ |
 | **Python** | Python | 3.9+ |
+| **Evaluation Framework** | RAGAS | Latest |
 
 ---
 
@@ -319,13 +333,19 @@ Response:
 
 ```json
 {
-  "answer": "string",
+  "answer": "string (final revised answer)",
   "sources": [
     {
       "source": "filename.pdf",
+      "score": 0.85,
       "content": "relevant excerpt..."
     }
-  ]
+  ],
+  "cove_steps": {
+    "draft": "Initial unverified answer...",
+    "verification_questions": ["Q1...", "Q2..."],
+    "verification_answers": ["A1...", "A2..."]
+  }
 }
 ```
 
