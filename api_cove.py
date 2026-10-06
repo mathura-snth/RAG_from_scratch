@@ -48,7 +48,7 @@ rag_retriever = RAGRetriever(vector_store, embedding_manager)
 groq_api_key = os.getenv("GROQ_API_KEY")
 llm = ChatGroq(
     groq_api_key=groq_api_key,
-    model_name="qwen/qwen3-32b",
+    model_name="qwen/qwen3.8-27b",
     temperature=0.1,
     max_tokens=1024,
 )

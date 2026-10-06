@@ -19,3 +19,6 @@ uvicorn
 langchain-text-splitters
 numpy
 pydantic
+# for the Cove Pipelin + Evaluation
+ragas
+datasets
